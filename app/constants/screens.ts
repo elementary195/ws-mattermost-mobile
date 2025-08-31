@@ -79,6 +79,7 @@ export const TERMS_OF_SERVICE = 'TermsOfService';
 export const THREAD = 'Thread';
 export const THREAD_FOLLOW_BUTTON = 'ThreadFollowButton';
 export const THREAD_OPTIONS = 'ThreadOptions';
+export const TRANSLATE_MODAL = 'TranslateModal';
 export const USER_PROFILE = 'UserProfile';
 export const CHANNEL_BOOKMARK = 'ChannelBookmarkAddOrEdit';
 export const GENERIC_OVERLAY = 'GenericOverlay';
@@ -162,6 +163,7 @@ export default {
     THREAD,
     THREAD_FOLLOW_BUTTON,
     THREAD_OPTIONS,
+    TRANSLATE_MODAL,
     USER_PROFILE,
     GENERIC_OVERLAY,
 } as const;
