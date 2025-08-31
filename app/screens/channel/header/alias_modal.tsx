@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import {useIntl} from 'react-intl';
-import {View, Text, TouchableOpacity, Alert, Keyboard} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Keyboard, Modal} from 'react-native';
 import {useTheme} from '@context/theme';
 import {changeOpacity, makeStyleSheetFromTheme} from '@utils/theme';
 import {typography} from '@utils/typography';
@@ -119,7 +119,7 @@ const AliasModal = ({initialAlias, serverUrl, channelId, currentUserId, searchTe
     }, []);
 
     return (
-        <View style={styles.content}>
+        <Modal style={styles.content}>
                 <Text style={styles.title}>
                     {formatMessage({id: 'channel_header.set_alias.title', defaultMessage: 'Set Alias'})}
                 </Text>
@@ -157,7 +157,7 @@ const AliasModal = ({initialAlias, serverUrl, channelId, currentUserId, searchTe
                         </Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </Modal>
     );
 };
 

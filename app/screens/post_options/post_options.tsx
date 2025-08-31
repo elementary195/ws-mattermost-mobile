@@ -6,7 +6,7 @@ import {useManagedConfig} from '@mattermost/react-native-emm';
 import React, {useMemo, useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
-import {CopyPermalinkOption, FollowThreadOption, ReplyOption, SaveOption, ForwardOption} from '@components/common_post_options';
+import {CopyPermalinkOption, FollowThreadOption, ReplyOption, SaveOption, ForwardOption, TranslateOption} from '@components/common_post_options';
 import {ITEM_HEIGHT} from '@components/option_item';
 import {Screens} from '@constants';
 import {REACTION_PICKER_HEIGHT, REACTION_PICKER_MARGIN} from '@constants/reaction_picker';
@@ -85,8 +85,18 @@ const PostOptions = ({
     const snapPoints = useMemo(() => {
         const items: Array<string | number> = [1];
         const optionsCount = [
-            canCopyPermalink, canCopyText, canDelete, canEdit,
-            canMarkAsUnread, canPin, canReply, !isSystemPost, shouldRenderFollow, !isSystemPost
+            canReply, // ReplyOption
+            true, // ForwardOption (всегда показывается)
+            true, // TranslateOption (всегда показывается)
+            shouldRenderFollow, // FollowThreadOption
+            canMarkAsUnread && !isSystemPost, // MarkAsUnreadOption
+            canCopyPermalink, // CopyPermalinkOption
+            !isSystemPost, // SaveOption
+            Boolean(canCopyText && post.message), // CopyTextOption
+            canPin, // PinChannelOption
+            !isSystemPost, // SharePostOption
+            canEdit, // EditOption
+            canDelete, // DeletePostOption
         ].reduce((acc, v) => {
             return v ? acc + 1 : acc;
         }, 0) + (shouldShowBindings ? 0.5 : 0);
@@ -101,7 +111,7 @@ const PostOptions = ({
     }, [
         canAddReaction, canCopyPermalink, canCopyText,
         canDelete, canEdit, shouldRenderFollow, shouldShowBindings,
-        canMarkAsUnread, canPin, canReply, isSystemPost,
+        canMarkAsUnread, canPin, canReply, isSystemPost, post.message,
     ]);
 
     const renderContent = () => {
@@ -120,6 +130,10 @@ const PostOptions = ({
                     />
                 }
                 <ForwardOption
+                        bottomSheetId={Screens.POST_OPTIONS}
+                        post={post}
+                />
+                <TranslateOption
                         bottomSheetId={Screens.POST_OPTIONS}
                         post={post}
                 />

@@ -295,6 +295,9 @@ Navigation.setLazyComponentRegistrator((screenName) => {
         case Screens.ALIAS_MODAL:
             screen = withServerDatabase(require('@screens/channel/header/alias_modal').default);
             break;
+        case Screens.TRANSLATE_MODAL:
+            screen = withServerDatabase(require('@screens/translate_modal').default);
+            break;
     }
 
     if (screen) {
