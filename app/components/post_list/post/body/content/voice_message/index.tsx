@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AudioFile from '@components/files/audio_file';
-import {buildFileUrl} from '@actions/remote/file';
+import {buildAbsoluteUrl} from '@actions/remote/file';
 import { useServerUrl } from '@context/server';
 import type PostModel from '@typings/database/models/servers/post';
 
@@ -14,29 +14,10 @@ type Props = {
 const VoiceMessage = ({post}: Props) => {
     const serverUrl = useServerUrl();
 
-    let props: any = {};
-    if (post.props) {
-        if (typeof post.props === 'string') {
-            try {
-                props = JSON.parse(post.props);
-            } catch (e) {
-                console.warn('Failed to parse post.props:', e);
-            }
-        } else if (typeof post.props === 'object') {
-            props = post.props;
-        }
-    }
-    
-    const fileId = props.fileId;
-
-    if (!fileId) {
-        return null;
-    }
-
-    const audioUrl = buildFileUrl(serverUrl, fileId);
+    const audioUrl = buildAbsoluteUrl(serverUrl, `/plugins/com.mattermost.voice/recordings/${post.id}`);
     
     const fileInfo = {
-        id: fileId,
+        id: post.id,
         uri: audioUrl,
         name: 'Voice Message',
         size: 0,

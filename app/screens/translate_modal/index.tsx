@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {useIntl} from 'react-intl';
-import {Alert, ScrollView, View, Text, TouchableOpacity, Modal} from 'react-native';
+import {Alert, ScrollView, View, Text, TouchableOpacity, Modal, TextInput, Clipboard} from 'react-native';
 
 import {translateText} from '@actions/remote/translate';
 import {useServerUrl} from '@context/server';
@@ -97,6 +97,24 @@ const getStyleSheet = makeStyleSheetFromTheme((theme) => ({
         padding: 15,
         borderRadius: 8,
         minHeight: 80,
+        textAlignVertical: 'top',
+    },
+    translationContainer: {
+        position: 'relative',
+    },
+    copyButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: theme.buttonBg,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 6,
+    },
+    copyButtonText: {
+        color: theme.buttonColor,
+        fontSize: 12,
+        fontWeight: 'bold',
     },
     modalOverlay: {
         flex: 1,
@@ -196,6 +214,12 @@ const TranslateModal = ({post}: Props) => {
     const handleClose = useCallback(() => {
         dismissModal();
     }, []);
+
+    const handleCopy = useCallback(() => {
+        if (translation) {
+            Clipboard.setString(translation);
+        }
+    }, [translation]);
 
     const getLanguageName = (code: string) => {
         if (code === 'auto') return 'Auto';
@@ -326,9 +350,18 @@ const TranslateModal = ({post}: Props) => {
                 </TouchableOpacity>
 
                 {translation && (
-                    <Text style={styles.translationText}>
-                        {translation}
-                    </Text>
+                    <View style={styles.translationContainer}>
+                        <TextInput
+                            style={styles.translationText}
+                            value={translation}
+                            multiline
+                            editable={false}
+                            selectTextOnFocus
+                        />
+                        <TouchableOpacity style={styles.copyButton} onPress={handleCopy}>
+                            <Text style={styles.copyButtonText}>Copy</Text>
+                        </TouchableOpacity>
+                    </View>
                 )}
             </ScrollView>
         </View>
