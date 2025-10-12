@@ -7,6 +7,7 @@ import mix from '@utils/mix';
 
 import ClientAliases, {type ClientAliasesMix} from './aliases';
 import ClientApps, {type ClientAppsMix} from './apps';
+import ClientForwardMessage, {type ClientForwardMessageMix} from './forward_message';
 import ClientBase from './base';
 import ClientCategories, {type ClientCategoriesMix} from './categories';
 import ClientChannelBookmarks, {type ClientChannelBookmarksMix} from './channel_bookmark';
@@ -48,7 +49,8 @@ interface Client extends ClientBase,
     ClientPluginsMix,
     ClientNPSMix,
     ClientCustomAttributesMix,
-    ClientAliasesMix
+    ClientAliasesMix,
+    ClientForwardMessageMix
 {}
 
 class Client extends mix(ClientBase).with(
@@ -72,6 +74,7 @@ class Client extends mix(ClientBase).with(
     ClientNPS,
     ClientCustomAttributes,
     ClientAliases,
+    ClientForwardMessage,
 ) {
     // eslint-disable-next-line no-useless-constructor
     constructor(apiClient: APIClientInterface, serverUrl: string, bearerToken?: string, csrfToken?: string) {

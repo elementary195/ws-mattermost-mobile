@@ -8,3 +8,4 @@ export {default as ReplyOption} from './reply_option';
 export {default as SaveOption} from './save_option';
 export {default as ForwardOption} from './forward_option';
 export {default as TranslateOption} from './translate_option';
+export {default as QuickReplyOption} from './quick_reply_option';

@@ -6,7 +6,7 @@ import {useManagedConfig} from '@mattermost/react-native-emm';
 import React, {useMemo, useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
-import {CopyPermalinkOption, FollowThreadOption, ReplyOption, SaveOption, ForwardOption, TranslateOption} from '@components/common_post_options';
+import {CopyPermalinkOption, FollowThreadOption, ReplyOption, SaveOption, ForwardOption, TranslateOption, QuickReplyOption} from '@components/common_post_options';
 import {ITEM_HEIGHT} from '@components/option_item';
 import {Screens} from '@constants';
 import {REACTION_PICKER_HEIGHT, REACTION_PICKER_MARGIN} from '@constants/reaction_picker';
@@ -87,6 +87,7 @@ const PostOptions = ({
         const optionsCount = [
             canReply, // ReplyOption
             true, // ForwardOption (всегда показывается)
+            true, // QuickReplyOption (всегда показывается)
             true, // TranslateOption (всегда показывается)
             shouldRenderFollow, // FollowThreadOption
             canMarkAsUnread && !isSystemPost, // MarkAsUnreadOption
@@ -130,6 +131,10 @@ const PostOptions = ({
                     />
                 }
                 <ForwardOption
+                        bottomSheetId={Screens.POST_OPTIONS}
+                        post={post}
+                />
+                <QuickReplyOption
                         bottomSheetId={Screens.POST_OPTIONS}
                         post={post}
                 />

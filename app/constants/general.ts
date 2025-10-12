@@ -45,4 +45,5 @@ export default {
     ALIASES_PLUGIN_ID: 'com.mattermost.plugin-name-aliases',
     NPS_PLUGIN_ID: 'com.mattermost.nps',
     NPS_PLUGIN_BOT_USERNAME: 'feedbackbot',
+    FORWARD_MESSAGE_PLUGIN_ID: 'com.mattermost.plugin-forward-message',
 };
